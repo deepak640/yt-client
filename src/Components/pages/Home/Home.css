@@ -1,0 +1,31 @@
+.container_Pages_App {
+    display: flex;
+    background-color: rgb(19, 19, 19);
+}
+
+.container2_Pages_App {
+    width: calc(100vw - 5rem);
+    height: calc(100vh - 3.80rem);
+    border-top: 2px solid rgba(128, 128, 128, 0.45);
+    overflow-y: auto;
+}
+
+.navigation_Home {
+    color: white;
+    background-color: rgb(37, 37, 37);
+    position: sticky;
+    display: flex;
+    overflow-x: auto;
+    top: 0;
+    border-bottom: 2px solid rgb(128, 128, 128, 0.27);
+}
+.btn_nav_home{
+    background-color: rgb(46, 46, 46);
+    margin: 0.5rem;
+    padding: 0.5em;
+    border-radius: 45px;
+    cursor: pointer;
+}
+.btn_nav_home:hover{
+    background-color: rgb(128, 128, 128);
+}

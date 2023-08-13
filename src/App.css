@@ -1,0 +1,30 @@
+.Channel_logo_App {
+    width: 2.2em;
+    height: 2.2em;
+    margin: auto;
+    border-radius: 100%;
+    background-color: rgb(42, 43, 38);
+    display: flex;
+}
+
+.fstChar_logo_App {
+    margin: auto;
+    color: black;
+    font-weight: bolder;
+    cursor: pointer;
+}
+
+.fstChar_logo_App p {
+    margin: auto;
+
+}
+.video_box_app {
+    width: 21rem;
+    height: 17rem;
+    margin-bottom: 1rem;
+    border: 2px solid transparent;
+}
+
+video {
+    background-color: rgba(8, 8, 8, 0.662);
+}
