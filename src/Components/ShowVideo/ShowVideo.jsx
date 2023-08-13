@@ -6,7 +6,7 @@ const ShowVideo = ({ vid }) => {
   return (
     <>
       <Link to={`/videopage/${vid?._id}`}>
-        <video src={`https://ytclone-p7p4.onrender.com/${vid?.filePath}`} className='video_ShowVideo'></video>
+        <video src={`https://ytclone-p7p4.onrender.com/uploads/${vid?.filePath.split('-').pop() }`} className='video_ShowVideo'></video>
       </Link>
       <div className="video_description">
         <div className="Channel_logo_App">
