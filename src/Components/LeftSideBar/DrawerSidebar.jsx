@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { AiFillLike, AiFillPlaySquare, AiOutlineHome } from 'react-icons/ai'
-import './leftsidebar.css'
+import './LeftSideBar.css'
 import { FaHistory } from "react-icons/fa";
 import { MdOutlineExplore, MdOutlineSubscriptions, MdOutlineVideoLibrary, MdOutlineWatchLater } from 'react-icons/md'
 import { NavLink } from 'react-router-dom';
