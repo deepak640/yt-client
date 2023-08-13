@@ -11,6 +11,7 @@ const VideoPage = () => {
     const { vid } = useParams()
     const vids = useSelector(state => state.videoReducer)?.data
     const vv = vids?.filter(q => q._id === vid)[0]
+    console.log("🚀 ~ file: VideoPage.jsx:14 ~ VideoPage ~ vv:", vv)
     const CurrentUser = useSelector(state => state.currentUserReducer)
     const dispatch = useDispatch()
     const handleHistory = () => {
