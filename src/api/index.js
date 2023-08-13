@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: `https://kind-parka-ant.cyclic.app/` });
+const API = axios.create({ baseURL: `https://ytclone-p7p4.onrender.com/` });
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem("Profile")) {
