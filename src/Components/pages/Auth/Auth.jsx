@@ -5,14 +5,15 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { useDispatch } from 'react-redux'
 import { setCurrentUser } from "../../../actions/currentUser";
 import { Link } from 'react-router-dom';
+import { getAuth, signOut } from 'firebase/auth';
+import firebase from '../../../firebase';
 const Auth = ({ User, setAuthBtn, setEditCreateChannelBtn }) => {
     const dispatch = useDispatch()
-    const onLogOutSuccess = () => {
-        const auth = gapi.auth2.getAuthInstance();
-        auth.signOut()
-        console.log("render")
+    const auth = getAuth(firebase)
+    const logout = async() => {
         dispatch(setCurrentUser(null))
-        alert("logout")
+            await signOut(auth)
+            window.location.reload()
     }
     return (
         <div className='Auth_container' onClick={() => setAuthBtn(false)}>
@@ -35,7 +36,6 @@ const Auth = ({ User, setAuthBtn, setEditCreateChannelBtn }) => {
                                 {
                                     <Link to={`/channel/${User.result._id}`} className='btn_Auth'>
                                         Your Channel
-                                        {/* <input type="submit" className='btn_Auth' value="Your Channel" /> */}
                                     </Link>
                                 }
                             </>
@@ -43,7 +43,7 @@ const Auth = ({ User, setAuthBtn, setEditCreateChannelBtn }) => {
                             <input type="submit" className='btn_Auth' value="Create Your Channel" onClick={() => setEditCreateChannelBtn(true)} />
                     }
                     <div>
-                        <div className='btn_Auth' onClick={onLogOutSuccess}><BiLogOut />Log out</div>
+                        <div className='btn_Auth' onClick={logout}><BiLogOut />Log out</div>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@ import './App.css'
 import { BrowserRouter as Router } from "react-router-dom";
 import { useEffect } from "react";
 import AllRoutes from './Components/Router';
+import 'react-toastify/dist/ReactToastify.css';
 import DrawerSidebar from './Components/LeftSideBar/DrawerSidebar';
 import { useState } from 'react';
 import { useDispatch } from "react-redux";
@@ -14,6 +15,7 @@ import { getAlllikedVideo } from './actions/likedVideo';
 import { getAllwatchLater } from './actions/watchLater';
 import { getAllHistory } from './actions/History';
 import { getAllComment } from './actions/comments';
+import { ToastContainer } from 'react-toastify';
 const App = () => {
   const dispatch = useDispatch()
   useEffect(() => {
@@ -42,6 +44,18 @@ const App = () => {
   const [EditCreateChannelBtn, setEditCreateChannelBtn] = useState(false)
   return (
     <Router>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       {videoUploadPage && <VideoUpload setVideoUploadPage={setVideoUploadPage} />}      {EditCreateChannelBtn && <CreateEditChannel setEditCreateChannelBtn={setEditCreateChannelBtn} />}
 
       <Navbar setEditCreateChannelBtn={setEditCreateChannelBtn} toggleDrawer={toggleDrawer} />
