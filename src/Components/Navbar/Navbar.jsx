@@ -22,7 +22,6 @@ const Navbar = ({ toggleDrawer, setEditCreateChannelBtn }) => {
   // }
 
   const CurrentUser = useSelector(state => state.currentUserReducer)
-  console.log("🚀 ~ file: Navbar.jsx:25 ~ Navbar ~ CurrentUser:", CurrentUser)
   // const Login = useGoogleLogin({
   //   onSuccess: (response) => {
   //     const Email = jwt_decode(response.credential).email;

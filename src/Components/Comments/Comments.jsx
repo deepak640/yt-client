@@ -1,29 +1,13 @@
 import { useState } from 'react'
 import './Comments.css'
 import { useDispatch, useSelector } from "react-redux";
-import { postComment } from "../../actions/comments";
+import { getAllComment, postComment } from "../../actions/comments";
 import DisplayComments from './DisplayComments'
+import { useEffect } from 'react';
 const Comments = ({ videoId }) => {
     const [commentText, setCommentText] = useState("")
     const CurrentUser = useSelector(state => state.currentUserReducer)
     const commentsList = useSelector(s => s.commentReducer)
-    // const commentsList = [
-    //     {
-    //         _id:1,
-    //         commentBody: "hello",
-    //         userCommented: "abc"
-    //     },
-    //     {
-    //         _id:2,
-    //         commentBody: "hello",
-    //         userCommented: "abc"
-    //     },
-    //     {
-    //         _id:3,
-    //         commentBody: "hello",
-    //         userCommented: "abc"
-    //     },
-    // ]
     const dispatch = useDispatch()
     const handleOnSubmit = (e) => {
         e.preventDefault()
@@ -43,6 +27,7 @@ const Comments = ({ videoId }) => {
             alert("plz login to comment")
         }
     }
+
     return (
         <>
             <form onSubmit={handleOnSubmit} className="comments_sub_form_comments">
@@ -53,7 +38,7 @@ const Comments = ({ videoId }) => {
                 {
                     commentsList?.data?.filter(q => videoId === q?.videoId).reverse().map((data, i) => {
                         return (
-                            <DisplayComments commentOn={data.commentOn} cId={data?._id} key={i} commentBody={data.commentBody} userId={data.userId} userCommented={data.userCommented} />
+                            <DisplayComments commentOn={data.commentOn} cId={data?._id} key={i} latitude={data?.latitude} longitude={data?.longitude} commentBody={data.commentBody} userId={data.userId} userCommented={data.userCommented} />
                         )
                     })
                 }

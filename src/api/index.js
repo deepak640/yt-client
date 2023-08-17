@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({ baseURL: `https://ytclone-p7p4.onrender.com/` });
+// const API = axios.create({ baseURL: `http://localhost:4000/` });
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem("Profile")) {
@@ -31,5 +32,5 @@ export const postComment = (CommentData) => API.post('/comment/post', CommentDat
 export const deleteComment = (id) => API.delete(`/comment/delete/${id}`)
 export const editComment = (id, commentBody) => API.patch(`/comment/edit/${id}`, { commentBody })
 export const getAllComment = () => API.get('/comment/get')
-
+export const patchlocation = (id, latitude, longitude) => API.patch(`/comment/location/${id}`, { latitude, longitude })
 

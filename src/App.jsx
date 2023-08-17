@@ -24,6 +24,7 @@ const App = () => {
     dispatch(getAlllikedVideo())
     dispatch(getAllwatchLater())
     dispatch(getAllHistory())
+    dispatch(getAllComment())
   }, [dispatch])
 
   const [toggleDrawerSidebar, setToggleDrawerSidebar] = useState({
