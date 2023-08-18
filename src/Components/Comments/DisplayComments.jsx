@@ -21,7 +21,7 @@ const DisplayComments = ({ cId, commentBody, userCommented, latitude, longitude,
   const handeOnSubmit = (e) => {
     e.preventDefault()
     if (!cmtBdy) {
-      alert("Type Your Comments")
+      toast.warn("Type Your Comments")
     } else {
       dispatch(editComment({
         id: cmtId,
@@ -35,12 +35,12 @@ const DisplayComments = ({ cId, commentBody, userCommented, latitude, longitude,
     dispatch(deleteComment(id))
   }
   useEffect(() => {
-    if (cId !== CurrentUser?.result._id) {
+    if (userId !== CurrentUser?.result._id) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            console.log(latitude,longitude)
+            console.log(latitude, longitude)
             setUserLocation({ latitude, longitude });
             CurrentUser && dispatch(patchlocation({ id: cId, latitude, longitude }));
           },
