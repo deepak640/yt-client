@@ -3,7 +3,7 @@ export const addToHistory = (HistoryData) => async (dispatch) => {
     try {
         const { data } = await api.addToHistory(HistoryData);
         dispatch({ type: "POST_HISTORY", data });
-        // dispatch(getAllwatchLater())
+        dispatch(getAllHistory())
     } catch (error) {
         console.log(error);
     }

@@ -6,6 +6,7 @@ import videoReducer from './video'
 import likedVideoReducer from './LikedVideo'
 import watchLaterReducer from './watchLater'
 import HistoryReducer from './history'
+import LikedHistoryReducer from './LikedHistory'
 import commentReducer from './comments'
 import locationReducer from './location'
 export default combineReducers({
@@ -16,6 +17,7 @@ export default combineReducers({
     likedVideoReducer,
     watchLaterReducer,
     HistoryReducer,
+    LikedHistoryReducer,
     commentReducer,
     locationReducer
 })

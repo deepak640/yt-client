@@ -3,6 +3,7 @@ import LeftSideBar from '../LeftSideBar/LeftSideBar'
 import WHLVideoList from './WHLVideoList'
 import { useSelector, useDispatch } from 'react-redux'
 import { clearHistory } from "../../actions/History";
+import { clearLikedHistory } from '../../actions/LikedHistory';
 const WHL = ({ page, videoList }) => {
   const CurrentUser = useSelector(state => state.currentUserReducer)
   const dispatch = useDispatch()
@@ -15,7 +16,7 @@ const WHL = ({ page, videoList }) => {
   }
   const handleClearLikedHistory = () => {
     if (CurrentUser) {
-      dispatch(clearHistory({
+      dispatch(clearLikedHistory({
         userId: CurrentUser?.result._id
       }))
     }
@@ -25,7 +26,7 @@ const WHL = ({ page, videoList }) => {
       <LeftSideBar />
       <div className="container2_Pages_App">
         <p className="container_whl">
-          <span className="box_WHL leftside_whl"> 
+          <span className="box_WHL leftside_whl">
             <b>Your {page} Shown here</b>
             {
               page === "History" &&

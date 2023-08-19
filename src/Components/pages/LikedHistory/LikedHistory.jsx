@@ -1,13 +1,13 @@
 import WHL from '../../WHL/WHL'
 import { useSelector } from "react-redux";
-const WatchHistory = () => {
-    const HistoryList = useSelector(state => state.HistoryReducer)
+const LikedHistoryHistory = () => {
+    const LikedHistoryList = useSelector(state => state.LikedHistoryReducer)
 
     return (
         <>
-            <WHL page={"Liked History"} videoList={HistoryList} />
+            <WHL page={"Liked History"} videoList={LikedHistoryList} />
         </>
     )
 }
 
-export default WatchHistory
+export default LikedHistoryHistory

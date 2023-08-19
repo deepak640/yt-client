@@ -6,7 +6,7 @@ import AllRoutes from './Components/Router';
 import 'react-toastify/dist/ReactToastify.css';
 import DrawerSidebar from './Components/LeftSideBar/DrawerSidebar';
 import { useState } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CreateEditChannel from './Components/pages/Channel/CreateEditChannel';
 import VideoUpload from './Components/pages/VideoUpload/VideoUpload';
 import { fetchAllChannel } from './actions/ChannelUser';
@@ -16,8 +16,11 @@ import { getAllwatchLater } from './actions/watchLater';
 import { getAllHistory } from './actions/History';
 import { getAllComment } from './actions/comments';
 import { ToastContainer } from 'react-toastify';
+import { getAllLikedHistory } from './actions/LikedHistory';
 const App = () => {
   const dispatch = useDispatch()
+  const CurrentUser = useSelector(state => state.currentUserReducer)
+
   useEffect(() => {
     dispatch(fetchAllChannel())
     dispatch(getAllVideo())
@@ -25,7 +28,8 @@ const App = () => {
     dispatch(getAllwatchLater())
     dispatch(getAllHistory())
     dispatch(getAllComment())
-  }, [dispatch])
+    dispatch(getAllLikedHistory())
+  }, [CurrentUser])
 
   const [toggleDrawerSidebar, setToggleDrawerSidebar] = useState({
     display: 'none'

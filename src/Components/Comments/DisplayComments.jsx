@@ -9,7 +9,7 @@ import { patchlocation } from '../../actions/location';
 const DisplayComments = ({ cId, commentBody, userCommented, latitude, longitude, userId, commentOn }) => {
   const [Edit, setEdit] = useState(false)
   const [cmtBdy, setcmtBdy] = useState("")
-  const [userLocation, setUserLocation] = useState(JSON.parse(localStorage.getItem('locationAllowed')));
+  const [userLocation, setUserLocation] = useState(JSON.parse(localStorage.getItem('locationAllowed')) || { longitude, latitude });
   const [cmtId, setCmtId] = useState("")
   const CurrentUser = useSelector(state => state?.currentUserReducer)
   const handleEdit = (ctID, ctBdy) => {
@@ -62,7 +62,7 @@ const DisplayComments = ({ cId, commentBody, userCommented, latitude, longitude,
       const { longitude, latitude } = userLocation
       dispatch(patchlocation({ id: cId, longitude, latitude }))
     }
-  }, []);
+  }, [userLocation]);
   return (
     <>
       {

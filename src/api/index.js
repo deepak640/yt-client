@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: `https://ytclone-p7p4.onrender.com/` });
-// const API = axios.create({ baseURL: `http://localhost:4000/` });
+// const API = axios.create({ baseURL: `https://ytclone-p7p4.onrender.com/` });
+const API = axios.create({ baseURL: `http://localhost:4000/` });
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem("Profile")) {
@@ -27,6 +27,9 @@ export const addToHistory = (HistoryData) => API.post('/video/History', HistoryD
 export const getAllHistory = () => API.get('/video/getAllHistory')
 export const clearHistory = (userId) => API.delete(`/video/clearHistory/${userId}`)
 
+export const addToLikedHistory = (LikedHistoryData) => API.post('/video/LikedHistory', LikedHistoryData)
+export const getAllLikedHistory = () => API.get('/video/getAllLikedHistory')
+export const clearLikedHistory = (userId) => API.delete(`/video/clearLikedHistory/${userId}`)
 
 export const postComment = (CommentData) => API.post('/comment/post', CommentData)
 export const deleteComment = (id) => API.delete(`/comment/delete/${id}`)

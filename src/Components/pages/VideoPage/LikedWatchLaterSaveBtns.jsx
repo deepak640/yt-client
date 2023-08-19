@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { likeVideo } from "../../../actions/Video";
 import { addTolikedVideo, deletelikedVideo } from "../../../actions/likedVideo";
 import { addTowatchLater, deletewatchLater } from "../../../actions/watchLater";
+import { addToLikedHistory } from "../../../actions/LikedHistory";
 const LikedWatchLaterSaveBtns = ({ vv, vid }) => {
     const CurrentUser = useSelector(state => state.currentUserReducer)
     const dispatch = useDispatch()
@@ -51,6 +52,10 @@ const LikedWatchLaterSaveBtns = ({ vv, vid }) => {
                 setLikeBtn(true);
                 dispatch(likeVideo({ id: vid, Like: lk + 1 }))
                 dispatch(addTolikedVideo({
+                    videoId: vid,
+                    Viewer: CurrentUser?.result._id
+                }))
+                dispatch(addToLikedHistory({
                     videoId: vid,
                     Viewer: CurrentUser?.result._id
                 }))
