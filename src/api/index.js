@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API = axios.create({ baseURL: `https://ytclone-p7p4.onrender.com/` });
-const API = axios.create({ baseURL: `http://localhost:4000/` });
+const API = axios.create({ baseURL: `https://ytclone-p7p4.onrender.com/` });
+// const API = axios.create({ baseURL: `http://localhost:4000/` });
 
 API.interceptors.request.use((req) => {
     if (localStorage.getItem("Profile")) {
