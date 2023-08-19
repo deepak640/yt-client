@@ -47,6 +47,12 @@ const DrawerSidebar = ({ toggleDrawer, toggleDrawerSidebar }) => {
                             <span className="text_sidebar_icon">History</span>
                         </p>
                     </NavLink>
+                    <NavLink to={'/historyliked'} className="icon_sidebar_div">
+                        <p>
+                            <FaHistory size={22} className={'icon_sidebar'} style={{ margin: 'auto 0.7rem' }} />
+                            <span className="text_sidebar_icon">liked history</span>
+                        </p>
+                    </NavLink>
                     <NavLink to={'/yourvideos'} className="icon_sidebar_div">
                         <p>
                             <AiFillPlaySquare size={22} className={'icon_sidebar'} style={{ margin: 'auto 0.7rem' }} />
@@ -86,7 +92,7 @@ const DrawerSidebar = ({ toggleDrawer, toggleDrawerSidebar }) => {
                     </div>
                 </div>
             </div>
-                <div className="container3_DrawerLeftSidebar" onClick={()=> toggleDrawer()}>hello</div>
+            <div className="container3_DrawerLeftSidebar" onClick={() => toggleDrawer()}></div>
         </div>
     )
 }

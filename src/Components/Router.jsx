@@ -3,6 +3,7 @@ import Home from './pages/Home/Home'
 import Library from "./pages/Library/Library";
 import YourVideo from './pages/YourVideo/YourVideo'
 import WatchHistory from './pages/WatchHistory/WatchHistory'
+import LikedHistory from './pages/LikedHistory/LikedHistory'
 import WatchLater from './pages/WatchLater/WatchLater'
 import LikedVideo from './pages/LikedVideo/LikedVideo'
 import VideoPage from "./pages/VideoPage/VideoPage";
@@ -15,6 +16,7 @@ const AllRoutes = ({ setEditCreateChannelBtn, setVideoUploadPage }) => {
       <Route path="/library" element={<Library />} />
       <Route path="/yourvideos" element={<YourVideo />} />
       <Route path="/history" element={<WatchHistory />} />
+      <Route path="/historyliked" element={<LikedHistory />} />
       <Route path="/watchlater" element={<WatchLater />} />
       <Route path="/likedvideos" element={<LikedVideo />} />
       <Route path="/library" element={<Library />} />

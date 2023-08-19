@@ -9,7 +9,7 @@ import { patchlocation } from '../../actions/location';
 const DisplayComments = ({ cId, commentBody, userCommented, latitude, longitude, userId, commentOn }) => {
   const [Edit, setEdit] = useState(false)
   const [cmtBdy, setcmtBdy] = useState("")
-  const [userLocation, setUserLocation] = useState({});
+  const [userLocation, setUserLocation] = useState(JSON.parse(localStorage.getItem('locationAllowed')));
   const [cmtId, setCmtId] = useState("")
   const CurrentUser = useSelector(state => state?.currentUserReducer)
   const handleEdit = (ctID, ctBdy) => {
@@ -21,7 +21,7 @@ const DisplayComments = ({ cId, commentBody, userCommented, latitude, longitude,
   const handeOnSubmit = (e) => {
     e.preventDefault()
     if (!cmtBdy) {
-      toast.warn("Type Your Comments")
+      alert("Type Your Comments")
     } else {
       dispatch(editComment({
         id: cmtId,
@@ -35,14 +35,20 @@ const DisplayComments = ({ cId, commentBody, userCommented, latitude, longitude,
     dispatch(deleteComment(id))
   }
   useEffect(() => {
-    if (userId !== CurrentUser?.result._id) {
+    const locationAllowed = localStorage.getItem('locationAllowed');
+    if (!locationAllowed) {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            console.log(latitude, longitude)
-            setUserLocation({ latitude, longitude });
-            CurrentUser && dispatch(patchlocation({ id: cId, latitude, longitude }));
+            if (userId === CurrentUser?.result._id) {
+              setUserLocation({ latitude, longitude });
+              console.log('done')
+              dispatch(patchlocation({ id: cId, latitude, longitude }))
+              const locationData = { latitude, longitude }; // Create an object to hold the values
+              const locationDataString = JSON.stringify(locationData); // Convert the object to a JSON string
+              localStorage.setItem('locationAllowed', locationDataString); // Store in localStorage
+            }
           },
           (error) => {
             toast.error('Location access denied or not available.');
@@ -51,6 +57,10 @@ const DisplayComments = ({ cId, commentBody, userCommented, latitude, longitude,
       } else {
         toast.error('Geolocation not supported by your browser.');
       }
+    }
+    if (userId === CurrentUser?.result._id) {
+      const { longitude, latitude } = userLocation
+      dispatch(patchlocation({ id: cId, longitude, latitude }))
     }
   }, []);
   return (
@@ -65,7 +75,7 @@ const DisplayComments = ({ cId, commentBody, userCommented, latitude, longitude,
         </> : <>
           <p className="comment_body">{commentBody}</p>
           <p className="comment_body">
-            {!longitude ? (
+            {!longitude && userId === CurrentUser?.result?._id ? (
               <>
                 {console.log("up")}
                 Latitude: {userLocation.latitude}, Longitude: {userLocation.longitude}{' '}

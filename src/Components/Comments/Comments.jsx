@@ -36,7 +36,7 @@ const Comments = ({ videoId }) => {
             </form>
             <div className="display_comment_container">
                 {
-                    commentsList?.data?.filter(q => videoId === q?.videoId).reverse().map((data, i) => {
+                    commentsList?.data?.filter(q => videoId === q?.videoId).map((data, i) => {
                         return (
                             <DisplayComments commentOn={data.commentOn} cId={data?._id} key={i} latitude={data?.latitude} longitude={data?.longitude} commentBody={data.commentBody} userId={data.userId} userCommented={data.userCommented} />
                         )
