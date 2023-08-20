@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import firebase from '../../firebase'
 import { useDispatch } from 'react-redux'
 import { getAuth, onAuthStateChanged, RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
+import 'react-phone-number-input/style.css'
 import { toast } from 'react-toastify';
 import GoogleButton from 'react-google-button';
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { login } from '../../actions/auth';
+import PhoneInput from 'react-phone-number-input';
 const Verification = ({ setShow }) => {
     const [phone_number, setPhone_number] = useState('')
     const [userName, setUserName] = useState('')
@@ -95,8 +97,9 @@ const Verification = ({ setShow }) => {
                     <form className='container2_CreateEditChannel' style={{ backgroundColor: 'black' }} onSubmit={onSignInSubmit}>
                         <h1 style={{ textAlign: "center" }}>Login</h1>
                         <input type="text" placeholder='create your userName' className='ibox' name='text' value={userName} onChange={(e) => setUserName(e.target.value)} required />
-                        <input name="tel" type='tel' pattern="/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i" required placeholder="123-4567-8901" value={phone_number}
-                            onChange={(e) => setPhone_number(e.target.value)} className='ibox' />
+                        {/* <input name="tel" type='tel' pattern="/^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/i" required placeholder="123-4567-8901" value={phone_number}
+                        onChange={(e) => setPhone_number(e.target.value)} className='ibox' /> */}
+                        <PhoneInput value={phone_number} defaultCountry='IN'  className='ibox' placeholder="Enter Phone Number" onChange={setPhone_number} required />
                         <input type="submit" value="Submit" className='ibtn' /><br />
                         <GoogleButton style={{ margin: "0 auto", }} onClick={googleSignin} />
                     </form>

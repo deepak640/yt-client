@@ -31,6 +31,7 @@
 .container2_CreateEditChannel textarea {
     resize: none;
     color: aliceblue;
+    background-color: black;
     padding: 0.3rem;
     border: 2px solid rgb(137, 243, 250);
 }
