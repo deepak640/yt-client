@@ -36,9 +36,6 @@ const Comments = ({ videoId }) => {
                             userCommented: CurrentUser?.result.name,
                             address: await fetch(longitude, latitude)
                         }))
-                    },
-                    (error) => {
-                        toast.error('Location access denied or not available.');
                     }
                 );
 
