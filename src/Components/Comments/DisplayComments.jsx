@@ -3,13 +3,15 @@ import { useEffect, useState } from 'react';
 import './Comments.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteComment, editComment } from '../../actions/comments';
+const API_KEY = import.meta.env.VITE_APP_KEY;
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import { patchlocation } from '../../actions/location';
-const DisplayComments = ({ cId, commentBody, userCommented, latitude, longitude, userId, commentOn }) => {
+import axios from 'axios';
+const DisplayComments = ({ cId, commentBody, userCommented, address, userId, commentOn }) => {
   const [Edit, setEdit] = useState(false)
   const [cmtBdy, setcmtBdy] = useState("")
-  const [userLocation, setUserLocation] = useState(JSON.parse(localStorage.getItem('locationAllowed')) || { longitude, latitude });
+  const [userLocation, setUserLocation] = useState(JSON.parse(localStorage.getItem('locationAllowed')) || {});
   const [cmtId, setCmtId] = useState("")
   const CurrentUser = useSelector(state => state?.currentUserReducer)
   const handleEdit = (ctID, ctBdy) => {
@@ -36,33 +38,36 @@ const DisplayComments = ({ cId, commentBody, userCommented, latitude, longitude,
   }
   useEffect(() => {
     const locationAllowed = localStorage.getItem('locationAllowed');
+    const fetch = async (longitude, latitude) => {
+      const result = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${API_KEY}`)
+      return result.data.features[0].place_name
+    }
     if (!locationAllowed) {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            const { latitude, longitude } = position.coords;
-            if (userId === CurrentUser?.result._id) {
-              setUserLocation({ latitude, longitude });
-              console.log('done')
-              dispatch(patchlocation({ id: cId, latitude, longitude }))
-              const locationData = { latitude, longitude }; // Create an object to hold the values
-              const locationDataString = JSON.stringify(locationData); // Convert the object to a JSON string
-              localStorage.setItem('locationAllowed', locationDataString); // Store in localStorage
-            }
-          },
-          (error) => {
-            toast.error('Location access denied or not available.');
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          if (userId === CurrentUser?.result._id) {
+            setUserLocation({ latitude, longitude });
+            const locationData = { latitude, longitude }; // Create an object to hold the values
+            const locationDataString = JSON.stringify(locationData); // Convert the object to a JSON string
+            localStorage.setItem('locationAllowed', locationDataString); // Store in localStorage
+            dispatch(patchlocation({ id: cId, address: await fetch(longitude, latitude) }))
           }
-        );
-      } else {
-        toast.error('Geolocation not supported by your browser.');
-      }
+        },
+        (error) => {
+          toast.error('Location access denied or not available.');
+        }
+      );
+
     }
     if (userId === CurrentUser?.result._id) {
       const { longitude, latitude } = userLocation
-      dispatch(patchlocation({ id: cId, longitude, latitude }))
+      fetch(longitude, latitude)
+        .then(placeName => {
+          dispatch(patchlocation({ id: cId, address: placeName }));
+        })
     }
-  }, [userLocation]);
+  }, [cId, CurrentUser]);
   return (
     <>
       {
@@ -74,21 +79,7 @@ const DisplayComments = ({ cId, commentBody, userCommented, latitude, longitude,
           </form>
         </> : <>
           <p className="comment_body">{commentBody}</p>
-          <p className="comment_body">
-            {!longitude && userId === CurrentUser?.result?._id ? (
-              <>
-                {console.log("up")}
-                Latitude: {userLocation.latitude}, Longitude: {userLocation.longitude}{' '}
-                <a target='_blank' href={`https://www.google.com/maps?q=${userLocation.latitude},${userLocation.longitude}`}>Show</a>
-              </>
-            ) : (
-              <>
-                {console.log("down")}
-                Latitude: {latitude}, Longitude: {longitude}{' '}
-                <a target='_blank' href={`https://www.google.com/maps?q=${latitude},${longitude}`}>Show</a>
-              </>
-            )}
-          </p>
+          <p className='comment_body'>{address}</p>
         </>
       }
       <p className="usercommented"> {" "} - {userCommented} commented {moment(commentOn).fromNow()}</p>

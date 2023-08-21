@@ -37,5 +37,10 @@ jspm_packages
 .node_repl_history
 .DS_Store
 
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 #Excluding build directory
 public/

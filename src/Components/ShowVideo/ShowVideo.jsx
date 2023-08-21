@@ -2,11 +2,12 @@
 import { Link } from 'react-router-dom'
 import './ShowVideo.css'
 import moment from 'moment'
+const API_BASE_URL = import.meta.env.VITE_APP_URL;
 const ShowVideo = ({ vid }) => {
   return (
     <>
       <Link to={`/videopage/${vid?._id}`}>
-        <video src={`https://ytclone-p7p4.onrender.com/uploads/${vid?.filePath.split('-').pop() }`} className='video_ShowVideo'></video>
+        <video src={`${API_BASE_URL}uploads/${vid?.filePath.split('-').pop() }`} className='video_ShowVideo'></video>
       </Link>
       <div className="video_description">
         <div className="Channel_logo_App">

@@ -1,4 +1,6 @@
 import './VideoPage.css'
+const API_BASE_URL = import.meta.env.VITE_APP_URL;
+
 import LikedWatchLaterSaveBtns from './LikedWatchLaterSaveBtns';
 import Comments from '../../Comments/Comments';
 import { Link, useParams } from 'react-router-dom';
@@ -40,7 +42,7 @@ const VideoPage = () => {
             <div className="container_videoPage">
                 <div className="container2_videoPage">
                     <div className="video_display_screen_videoPage">
-                        <video src={`https://ytclone-p7p4.onrender.com/uploads/${vv?.filePath.split('-').pop()}`} className={"video_ShowVideo_videoPage"} controls></video>
+                        <video src={`${API_BASE_URL}uploads/${vv?.filePath.split('-').pop()}`} className={"video_ShowVideo_videoPage"} controls></video>
                         <div className="video_details_videoPage">
                             <div className="video_btns_title_VideoPage_cont">
                                 <p className="video_title_VideoPage">{vv?.videoTitle}</p>
