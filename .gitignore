@@ -43,4 +43,3 @@ jspm_packages
 .env.production.local
 .env.local
 #Excluding build directory
-public/
