@@ -12,28 +12,8 @@ import Auth from '../pages/Auth/Auth';
 import Verification from '../verification/Verification';
 const Navbar = ({ toggleDrawer, setEditCreateChannelBtn }) => {
   const [show, setShow] = useState(false)
-  // const CurrentUser = null
   const [AuthBtn, setAuthBtn] = useState(false)
-  // const CurrentUser = {
-  //   result: {
-  //     email: "kajsljdkh@gmail.com",
-  //     joinedOn: "2222-07-15T09:57:23.489Z"
-  //   }
-  // }
-
   const CurrentUser = useSelector(state => state.currentUserReducer)
-  // const Login = useGoogleLogin({
-  //   onSuccess: (response) => {
-  //     const Email = jwt_decode(response.credential).email;
-  //     const currentUrl = window.location.href;
-  //     console.log("🚀 ~ file: Navbar.jsx:24 ~ onSuccess ~ Email:", Email, "Current URL:", currentUrl);
-  //     dispatch(login({ email: Email }));
-  //   },
-  //   onError: (response) => {
-  //     console.log("Failed", response);
-  //   }
-  // });
-
   return (
     <>
       <div className='Container_Navbar'>

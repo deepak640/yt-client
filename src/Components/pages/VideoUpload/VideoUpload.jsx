@@ -37,7 +37,6 @@ const VideoUpload = ({ setVideoUploadPage }) => {
       fileData.append('title', title)
       fileData.append('channel', CurrentUser?.result._id)
       fileData.append('Uploader', CurrentUser?.result.name)
-      console.log(fileData)
       dispatch(uploadVideo({
         fileData: fileData, fileOptions: fileOptions
       }))

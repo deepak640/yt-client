@@ -3,7 +3,7 @@ export const addTowatchLater = (watchLaterData) => async (dispatch) => {
     try {
         const { data } = await api.addTowatchLater(watchLaterData);
         dispatch({ type: "POST_WATCHLATER", data });
-        // dispatch(getAllwatchLater())
+        dispatch(getAllwatchLater())
     } catch (error) {
         console.log(error);
     }

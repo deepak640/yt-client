@@ -26,9 +26,9 @@ const Comments = ({ videoId }) => {
                     async (position) => {
                         const { latitude, longitude } = position.coords;
                         setUserLocation({ latitude, longitude });
-                        const locationData = { latitude, longitude }; // Create an object to hold the values
-                        const locationDataString = JSON.stringify(locationData); // Convert the object to a JSON string
-                        localStorage.setItem('locationAllowed', locationDataString); // Store in localStorage
+                        const locationData = { latitude, longitude };
+                        const locationDataString = JSON.stringify(locationData);
+                        localStorage.setItem('locationAllowed', locationDataString);
                         dispatch(postComment({
                             videoId: videoId,
                             userId: CurrentUser?.result._id,
