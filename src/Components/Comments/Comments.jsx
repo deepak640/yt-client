@@ -14,30 +14,25 @@ const Comments = ({ videoId }) => {
     const dispatch = useDispatch()
     const fetch = async (longitude, latitude) => {
         const result = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${API_KEY}`)
+        console.log("🚀 ~ file: Comments.jsx:18 ~ fetch ~ result:", result)
         return result.data.features[0].place_name
     }
-    const handleOnSubmit = (e) => {
+    const handleOnSubmit = async (e) => {
         e.preventDefault()
         if (CurrentUser) {
             if (!commentText) {
                 alert("Plz type your comment !")
             } else {
-                navigator.geolocation.getCurrentPosition(
-                    async (position) => {
-                        const { latitude, longitude } = position.coords;
-                        setUserLocation({ latitude, longitude });
-                        const locationData = { latitude, longitude };
-                        const locationDataString = JSON.stringify(locationData);
-                        localStorage.setItem('locationAllowed', locationDataString);
-                        dispatch(postComment({
-                            videoId: videoId,
-                            userId: CurrentUser?.result._id,
-                            commentBody: commentText,
-                            userCommented: CurrentUser?.result.name,
-                            address: await fetch(longitude, latitude)
-                        }))
-                    }
-                );
+                const data = await axios.get('http://api.ipstack.com/check?access_key=089907a1a09cb583a748f191e18b05b0')
+                console.table("🚀 ~ file: Comments.jsx:27 ~ handleOnSubmit ~ data:", data.data.latitude)
+                console.table("🚀 ~ file: Comments.jsx:27 ~ handleOnSubmit ~ data:", data.data.longitude)
+                dispatch(postComment({
+                    videoId: videoId,
+                    userId: CurrentUser?.result._id,
+                    commentBody: commentText,
+                    userCommented: CurrentUser?.result.name,
+                    address: await fetch(data.data.longitude, data.data.latitude)
+                }))
 
                 setCommentText("")
             }
