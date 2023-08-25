@@ -2,7 +2,7 @@
 import { IoMdNotificationsOutline } from 'react-icons/io';
 import SearchBar from '../SearchBar/SearchBar'
 import './Navbar.css'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import logo from './yt.ico'
 import { RiVideoAddLine } from "react-icons/ri";
 import { BiUserCircle } from "react-icons/bi";

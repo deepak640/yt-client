@@ -5,12 +5,10 @@ import { postComment } from "../../actions/comments";
 import DisplayComments from './DisplayComments'
 const API_KEY = import.meta.env.VITE_APP_KEY;
 import axios from 'axios';
-import { toast } from 'react-toastify';
 const Comments = ({ videoId }) => {
     const [commentText, setCommentText] = useState("")
     const CurrentUser = useSelector(state => state.currentUserReducer)
     const commentsList = useSelector(s => s.commentReducer)
-    const [userLocation, setUserLocation] = useState(JSON.parse(localStorage.getItem('locationAllowed')) || {});
     const dispatch = useDispatch()
     const fetch = async (longitude, latitude) => {
         const result = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${API_KEY}`)
@@ -23,16 +21,28 @@ const Comments = ({ videoId }) => {
             if (!commentText) {
                 alert("Plz type your comment !")
             } else {
-                const data = await axios.get('http://api.ipstack.com/check?access_key=089907a1a09cb583a748f191e18b05b0')
-                console.table("🚀 ~ file: Comments.jsx:27 ~ handleOnSubmit ~ data:", data.data.latitude)
-                console.table("🚀 ~ file: Comments.jsx:27 ~ handleOnSubmit ~ data:", data.data.longitude)
-                dispatch(postComment({
-                    videoId: videoId,
-                    userId: CurrentUser?.result._id,
-                    commentBody: commentText,
-                    userCommented: CurrentUser?.result.name,
-                    address: await fetch(data.data.longitude, data.data.latitude)
-                }))
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        const { latitude, longitude } = position.coords;
+                        dispatch(postComment({
+                            videoId: videoId,
+                            userId: CurrentUser?.result._id,
+                            commentBody: commentText,
+                            userCommented: CurrentUser?.result.name,
+                            address: await fetch(longitude, latitude)
+                        }))
+                    },
+                    async (error) => {
+                        const data = await axios.get('http://ip-api.com/json')
+                        const result = data.data
+                        dispatch(postComment({
+                            videoId: videoId,
+                            userId: CurrentUser?.result._id,
+                            commentBody: commentText,
+                            userCommented: CurrentUser?.result.name,
+                            address: await fetch(result.lon, result.lat)
+                        }))
+                    });
 
                 setCommentText("")
             }
