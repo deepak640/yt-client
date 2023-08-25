@@ -12,7 +12,7 @@ const Comments = ({ videoId }) => {
     const dispatch = useDispatch()
     const fetch = async (longitude, latitude) => {
         console.log(API_KEY)
-        const result = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=pk.eyJ1IjoiYWtuZWdpIiwiYSI6ImNsbGtnb2ZnajFvNTkzcHFqc3AwNTB4dzcifQ.BhQfAVgbKgRli1K--z2-6w`)
+        const result = await axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${longitude},${latitude}.json?access_token=${API_KEY}`)
         console.log("🚀 ~ file: Comments.jsx:18 ~ fetch ~ result:", result)
         return result.data.features[0].place_name
     }
