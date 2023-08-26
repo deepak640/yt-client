@@ -10,6 +10,7 @@ const Library = () => {
   const likedVideoList = useSelector(state => state.likedVideoReducer)
   const CurrentUser = useSelector(state => state.currentUserReducer)
   const HistoryList = useSelector(state => state.HistoryReducer)
+  const LikedHistoryList = useSelector(state => state.LikedHistoryReducer)
 
 
   return (
@@ -47,6 +48,17 @@ const Library = () => {
           </h1>
           <div className="container_videoList_LibraryPage">
             <WHLVideoList CurrentUser={CurrentUser?.result._id} page={"Liked Videos"} videoList={likedVideoList} />
+          </div>
+        </div>
+        <div className="container_libraryPage">
+          <h1 className="title_container_LibraryPage">
+            <b>
+              <FaHistory />
+            </b>
+            <b>Liked History</b>
+          </h1>
+          <div className="container_videoList_LibraryPage">
+            <WHLVideoList CurrentUser={CurrentUser?.result._id} page={"Liked History"} videoList={LikedHistoryList} />
           </div>
         </div>
       </div>
