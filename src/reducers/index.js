@@ -8,7 +8,6 @@ import watchLaterReducer from './watchLater'
 import HistoryReducer from './history'
 import LikedHistoryReducer from './LikedHistory'
 import commentReducer from './comments'
-import locationReducer from './location'
 export default combineReducers({
     authReducer,
     currentUserReducer,
@@ -19,5 +18,4 @@ export default combineReducers({
     HistoryReducer,
     LikedHistoryReducer,
     commentReducer,
-    locationReducer
 })

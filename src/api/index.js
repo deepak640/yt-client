@@ -35,5 +35,4 @@ export const postComment = (CommentData) => API.post('/comment/post', CommentDat
 export const deleteComment = (id) => API.delete(`/comment/delete/${id}`)
 export const editComment = (id, commentBody) => API.patch(`/comment/edit/${id}`, { commentBody })
 export const getAllComment = () => API.get('/comment/get')
-export const patchlocation = (id, address) => API.patch(`/comment/location/${id}`, { address })
 
