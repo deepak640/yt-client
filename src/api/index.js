@@ -13,7 +13,7 @@ API.interceptors.request.use((req) => {
 export const login = (authData) => API.post("/users/login", authData);
 export const updateChannelDate = (id, updateData) => API.patch(`/users/update/${id}`, updateData);
 export const fetchAllChannel = () => API.get('/users/getAllChannels')
-export const uploadVideo = (fileData, fileOptions) => { API.post('/video/uploadVideo', fileData, fileOptions) }
+export const uploadVideo = (title, filePath, channel, Uploader) => { API.post('/video/uploadVideo', { title, filePath, channel, Uploader }) }
 export const getVideos = () => API.get('/video/getvideos')
 export const likeVideo = (id, Like) => API.patch(`/video/like/${id}`, { Like })
 export const viewsVideo = (id) => API.patch(`/video/views/${id}`)

@@ -2,8 +2,8 @@ import * as api from '../api'
 
 export const uploadVideo = (videoData) => async (dispatch) => {
     try {
-        const { fileData, fileOptions } = videoData
-        const { data } = await api.uploadVideo(fileData, fileOptions)
+        const { title, filePath, channel, Uploader } = videoData
+        const { data } = await api.uploadVideo(title, filePath, channel, Uploader)
         dispatch({ type: 'POST_VIDEO', data })
         dispatch(getAllVideo())
 

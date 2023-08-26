@@ -42,7 +42,7 @@ const VideoPage = () => {
             <div className="container_videoPage">
                 <div className="container2_videoPage">
                     <div className="video_display_screen_videoPage">
-                        <video src={`${API_BASE_URL}uploads/${vv?.filePath.split('-').pop()}`} className={"video_ShowVideo_videoPage"} controls></video>
+                        <video src={`${vv?.filePath}`} className={"video_ShowVideo_videoPage"} controls></video>
                         <div className="video_details_videoPage">
                             <div className="video_btns_title_VideoPage_cont">
                                 <p className="video_title_VideoPage">{vv?.videoTitle}</p>

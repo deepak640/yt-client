@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import './VideoUpload.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { uploadVideo } from '../../../actions/Video'
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { storage } from "../../../firebase";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 const VideoUpload = ({ setVideoUploadPage }) => {
   const [title, setTitle] = useState('')
@@ -29,17 +31,29 @@ const VideoUpload = ({ setVideoUploadPage }) => {
       alert("plz Enter A title of the video")
     } else if (!videoFile) {
       alert('Attach a video File')
-    } else if (videoFile.size < 1000000) {
-      alert('Plz attach video file less than 1kb')
     } else {
-      const fileData = new FormData()
-      fileData.append('file', videoFile)
-      fileData.append('title', title)
-      fileData.append('channel', CurrentUser?.result._id)
-      fileData.append('Uploader', CurrentUser?.result.name)
-      dispatch(uploadVideo({
-        fileData: fileData, fileOptions: fileOptions
-      }))
+      const fileref = ref(storage, `videos/${videoFile.name}`)
+      const uploadTask = uploadBytesResumable(fileref, videoFile)
+      uploadTask.on('state_changed', (snapshot) => {
+        let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        progress = Math.trunc(progress)
+        setProgress(progress)
+      }, (error) => console.log(error), () => {
+        setVideoUploadPage(false);
+        getDownloadURL(uploadTask.snapshot.ref).then(downloadURL => {
+          dispatch(uploadVideo({
+            title: title,
+            filePath: downloadURL,
+            channel: CurrentUser?.result._id,
+            Uploader: CurrentUser?.result.name,
+          }))
+        })
+      })
+      // const fileData = new FormData()
+      // fileData.append('file', videoFile)
+      // fileData.append('title', title)
+      // fileData.append('channel', CurrentUser?.result._id)
+      // fileData.append('Uploader', CurrentUser?.result.name)
     }
   }
   return (

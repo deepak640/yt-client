@@ -7,7 +7,7 @@ const ShowVideo = ({ vid }) => {
   return (
     <>
       <Link to={`/videopage/${vid?._id}`}>
-        <video src={`${API_BASE_URL}uploads/${vid?.filePath.split('-').pop() }`} className='video_ShowVideo'></video>
+        <video src={vid?.filePath} className='video_ShowVideo'></video>
       </Link>
       <div className="video_description">
         <div className="Channel_logo_App">
